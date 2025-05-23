@@ -1,5 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Search, ShoppingCart, User, Menu, X, Star, Heart, Filter, Grid, List, ChevronDown, Plus, Minus, Truck, Shield, RotateCcw } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  Search,
+  ShoppingCart,
+  User,
+  Menu,
+  X,
+  Star,
+  Heart,
+  Filter,
+  Grid,
+  List,
+  ChevronDown,
+  Plus,
+  Minus,
+  Truck,
+  Shield,
+  RotateCcw,
+} from "lucide-react";
 
 // Mock API Data
 const mockProducts = [
@@ -12,12 +29,18 @@ const mockProducts = [
     brand: "AudioTech",
     rating: 4.8,
     reviews: 124,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
-    description: "High-quality wireless headphones with noise cancellation and premium sound quality.",
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
+    description:
+      "High-quality wireless headphones with noise cancellation and premium sound quality.",
     inStock: true,
     stockCount: 15,
     tags: ["wireless", "noise-canceling", "premium"],
-    features: ["40-hour battery", "Active noise cancellation", "Premium drivers"]
+    features: [
+      "40-hour battery",
+      "Active noise cancellation",
+      "Premium drivers",
+    ],
   },
   {
     id: 2,
@@ -28,12 +51,14 @@ const mockProducts = [
     brand: "FitTech",
     rating: 4.6,
     reviews: 89,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",
-    description: "Track your fitness goals with this advanced smartwatch featuring heart rate monitoring.",
+    image:
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop",
+    description:
+      "Track your fitness goals with this advanced smartwatch featuring heart rate monitoring.",
     inStock: true,
     stockCount: 8,
     tags: ["fitness", "smartwatch", "health"],
-    features: ["Heart rate monitor", "GPS tracking", "Waterproof"]
+    features: ["Heart rate monitor", "GPS tracking", "Waterproof"],
   },
   {
     id: 3,
@@ -44,12 +69,14 @@ const mockProducts = [
     brand: "OrganizePro",
     rating: 4.7,
     reviews: 156,
-    image: "https://images.unsplash.com/photo-1586953983027-d7508a64f4bb?w=300&h=300&fit=crop",
-    description: "Keep your workspace tidy with this elegant wooden desk organizer.",
+    image:
+      "https://images.unsplash.com/photo-1586953983027-d7508a64f4bb?w=300&h=300&fit=crop",
+    description:
+      "Keep your workspace tidy with this elegant wooden desk organizer.",
     inStock: true,
     stockCount: 23,
     tags: ["organization", "wood", "minimalist"],
-    features: ["Bamboo construction", "Multiple compartments", "Non-slip base"]
+    features: ["Bamboo construction", "Multiple compartments", "Non-slip base"],
   },
   {
     id: 4,
@@ -60,12 +87,14 @@ const mockProducts = [
     brand: "LensMaster",
     rating: 4.9,
     reviews: 67,
-    image: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=300&h=300&fit=crop",
-    description: "Professional-grade camera lens perfect for portrait and landscape photography.",
+    image:
+      "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=300&h=300&fit=crop",
+    description:
+      "Professional-grade camera lens perfect for portrait and landscape photography.",
     inStock: true,
     stockCount: 5,
     tags: ["photography", "professional", "lens"],
-    features: ["85mm focal length", "f/1.4 aperture", "Weather sealed"]
+    features: ["85mm focal length", "f/1.4 aperture", "Weather sealed"],
   },
   {
     id: 5,
@@ -76,12 +105,14 @@ const mockProducts = [
     brand: "LuxStyle",
     rating: 4.5,
     reviews: 203,
-    image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=300&fit=crop",
-    description: "Elegant leather handbag crafted from premium materials with timeless design.",
+    image:
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=300&fit=crop",
+    description:
+      "Elegant leather handbag crafted from premium materials with timeless design.",
     inStock: true,
     stockCount: 12,
     tags: ["leather", "luxury", "handbag"],
-    features: ["Genuine leather", "Multiple pockets", "Adjustable strap"]
+    features: ["Genuine leather", "Multiple pockets", "Adjustable strap"],
   },
   {
     id: 6,
@@ -92,12 +123,14 @@ const mockProducts = [
     brand: "GameTech",
     rating: 4.8,
     reviews: 342,
-    image: "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=300&h=300&fit=crop",
-    description: "RGB mechanical keyboard designed for gaming with tactile switches.",
+    image:
+      "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=300&h=300&fit=crop",
+    description:
+      "RGB mechanical keyboard designed for gaming with tactile switches.",
     inStock: false,
     stockCount: 0,
     tags: ["gaming", "mechanical", "rgb"],
-    features: ["Mechanical switches", "RGB backlighting", "Programmable keys"]
+    features: ["Mechanical switches", "RGB backlighting", "Programmable keys"],
   },
   {
     id: 7,
@@ -108,12 +141,13 @@ const mockProducts = [
     brand: "RoastCraft",
     rating: 4.7,
     reviews: 89,
-    image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300&h=300&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=300&h=300&fit=crop",
     description: "Premium single-origin coffee beans roasted to perfection.",
     inStock: true,
     stockCount: 45,
     tags: ["coffee", "artisan", "organic"],
-    features: ["Single-origin", "Medium roast", "Ethically sourced"]
+    features: ["Single-origin", "Medium roast", "Ethically sourced"],
   },
   {
     id: 8,
@@ -124,27 +158,45 @@ const mockProducts = [
     brand: "ChargeFast",
     rating: 4.4,
     reviews: 178,
-    image: "https://images.unsplash.com/photo-1588508065123-287b28e013da?w=300&h=300&fit=crop",
-    description: "Fast wireless charging pad compatible with all Qi-enabled devices.",
+    image:
+      "https://images.unsplash.com/photo-1588508065123-287b28e013da?w=300&h=300&fit=crop",
+    description:
+      "Fast wireless charging pad compatible with all Qi-enabled devices.",
     inStock: true,
     stockCount: 32,
     tags: ["wireless", "charging", "fast"],
-    features: ["15W fast charging", "LED indicator", "Non-slip surface"]
-  }
+    features: ["15W fast charging", "LED indicator", "Non-slip surface"],
+  },
 ];
 
-const categories = ["All", "Electronics", "Fashion", "Home & Office", "Food & Beverage"];
-const brands = ["All", "AudioTech", "FitTech", "OrganizePro", "LensMaster", "LuxStyle", "GameTech", "RoastCraft", "ChargeFast"];
+const categories = [
+  "All",
+  "Electronics",
+  "Fashion",
+  "Home & Office",
+  "Food & Beverage",
+];
+const brands = [
+  "All",
+  "AudioTech",
+  "FitTech",
+  "OrganizePro",
+  "LensMaster",
+  "LuxStyle",
+  "GameTech",
+  "RoastCraft",
+  "ChargeFast",
+];
 
 // Custom Hooks
 const useCart = () => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product, quantity = 1) => {
-    setCart(prev => {
-      const existing = prev.find(item => item.id === product.id);
+    setCart((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
       if (existing) {
-        return prev.map(item =>
+        return prev.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
@@ -155,7 +207,7 @@ const useCart = () => {
   };
 
   const removeFromCart = (productId) => {
-    setCart(prev => prev.filter(item => item.id !== productId));
+    setCart((prev) => prev.filter((item) => item.id !== productId));
   };
 
   const updateQuantity = (productId, quantity) => {
@@ -163,16 +215,17 @@ const useCart = () => {
       removeFromCart(productId);
       return;
     }
-    setCart(prev =>
-      prev.map(item =>
-        item.id === productId ? { ...item, quantity } : item
-      )
+    setCart((prev) =>
+      prev.map((item) => (item.id === productId ? { ...item, quantity } : item))
     );
   };
 
   const clearCart = () => setCart([]);
 
-  const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const cartTotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return {
@@ -182,7 +235,7 @@ const useCart = () => {
     updateQuantity,
     clearCart,
     cartTotal,
-    cartCount
+    cartCount,
   };
 };
 
@@ -190,17 +243,17 @@ const useWishlist = () => {
   const [wishlist, setWishlist] = useState([]);
 
   const toggleWishlist = (product) => {
-    setWishlist(prev => {
-      const exists = prev.find(item => item.id === product.id);
+    setWishlist((prev) => {
+      const exists = prev.find((item) => item.id === product.id);
       if (exists) {
-        return prev.filter(item => item.id !== product.id);
+        return prev.filter((item) => item.id !== product.id);
       }
       return [...prev, product];
     });
   };
 
   const isInWishlist = (productId) => {
-    return wishlist.some(item => item.id === productId);
+    return wishlist.some((item) => item.id === productId);
   };
 
   return { wishlist, toggleWishlist, isInWishlist };
@@ -208,7 +261,7 @@ const useWishlist = () => {
 
 // Components
 const Header = ({ cartCount, onCartClick, onMenuClick }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
@@ -289,35 +342,40 @@ const Sidebar = ({ isOpen, onClose, filters, onFilterChange }) => {
           onClick={onClose}
         />
       )}
-      <div className={`fixed left-0 top-0 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 z-50 md:relative md:translate-x-0 md:shadow-none ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
+      <div
+        className={`fixed left-0 top-0 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 z-50 md:relative md:translate-x-0 md:shadow-none ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <div className="p-6">
           <div className="flex items-center justify-between mb-6 md:hidden">
             <h2 className="text-lg font-semibold">Filters</h2>
-            <button
-              onClick={onClose}
-              className="p-1 hover:bg-gray-100 rounded"
-            >
+            <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded">
               <X className="h-6 w-6" />
             </button>
           </div>
 
           <div className="space-y-6">
             <div>
-              <h3 className="text-sm font-medium text-gray-900 mb-3">Category</h3>
+              <h3 className="text-sm font-medium text-gray-900 mb-3">
+                Category
+              </h3>
               <div className="space-y-2">
-                {categories.map(category => (
+                {categories.map((category) => (
                   <label key={category} className="flex items-center">
                     <input
                       type="radio"
                       name="category"
                       value={category}
                       checked={filters.category === category}
-                      onChange={(e) => onFilterChange('category', e.target.value)}
+                      onChange={(e) =>
+                        onFilterChange("category", e.target.value)
+                      }
                       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
                     />
-                    <span className="ml-2 text-sm text-gray-700">{category}</span>
+                    <span className="ml-2 text-sm text-gray-700">
+                      {category}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -326,14 +384,14 @@ const Sidebar = ({ isOpen, onClose, filters, onFilterChange }) => {
             <div>
               <h3 className="text-sm font-medium text-gray-900 mb-3">Brand</h3>
               <div className="space-y-2">
-                {brands.map(brand => (
+                {brands.map((brand) => (
                   <label key={brand} className="flex items-center">
                     <input
                       type="radio"
                       name="brand"
                       value={brand}
                       checked={filters.brand === brand}
-                      onChange={(e) => onFilterChange('brand', e.target.value)}
+                      onChange={(e) => onFilterChange("brand", e.target.value)}
                       className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
                     />
                     <span className="ml-2 text-sm text-gray-700">{brand}</span>
@@ -343,14 +401,16 @@ const Sidebar = ({ isOpen, onClose, filters, onFilterChange }) => {
             </div>
 
             <div>
-              <h3 className="text-sm font-medium text-gray-900 mb-3">Price Range</h3>
+              <h3 className="text-sm font-medium text-gray-900 mb-3">
+                Price Range
+              </h3>
               <div className="space-y-2">
                 <input
                   type="range"
                   min="0"
                   max="1000"
                   value={filters.maxPrice}
-                  onChange={(e) => onFilterChange('maxPrice', e.target.value)}
+                  onChange={(e) => onFilterChange("maxPrice", e.target.value)}
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex justify-between text-sm text-gray-600">
@@ -365,10 +425,14 @@ const Sidebar = ({ isOpen, onClose, filters, onFilterChange }) => {
                 <input
                   type="checkbox"
                   checked={filters.inStockOnly}
-                  onChange={(e) => onFilterChange('inStockOnly', e.target.checked)}
+                  onChange={(e) =>
+                    onFilterChange("inStockOnly", e.target.checked)
+                  }
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
-                <span className="ml-2 text-sm text-gray-700">In Stock Only</span>
+                <span className="ml-2 text-sm text-gray-700">
+                  In Stock Only
+                </span>
               </label>
             </div>
           </div>
@@ -378,7 +442,12 @@ const Sidebar = ({ isOpen, onClose, filters, onFilterChange }) => {
   );
 };
 
-const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) => {
+const ProductCard = ({
+  product,
+  onAddToCart,
+  onToggleWishlist,
+  isWishlisted,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -407,10 +476,12 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
         <button
           onClick={() => onToggleWishlist(product)}
           className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-200 ${
-            isWishlisted ? 'bg-red-500 text-white' : 'bg-white text-gray-400 hover:text-red-500'
+            isWishlisted
+              ? "bg-red-500 text-white"
+              : "bg-white text-gray-400 hover:text-red-500"
           }`}
         >
-          <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
+          <Heart className={`h-5 w-5 ${isWishlisted ? "fill-current" : ""}`} />
         </button>
         {product.originalPrice > product.price && (
           <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-semibold">
@@ -421,21 +492,33 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
 
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-gray-500 uppercase tracking-wide">{product.brand}</span>
+          <span className="text-xs text-gray-500 uppercase tracking-wide">
+            {product.brand}
+          </span>
           <div className="flex items-center">
             <Star className="h-4 w-4 text-yellow-400 fill-current" />
-            <span className="text-xs text-gray-600 ml-1">{product.rating} ({product.reviews})</span>
+            <span className="text-xs text-gray-600 ml-1">
+              {product.rating} ({product.reviews})
+            </span>
           </div>
         </div>
 
-        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
+        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+          {product.name}
+        </h3>
+        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+          {product.description}
+        </p>
 
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
-            <span className="text-lg font-bold text-gray-900">${product.price}</span>
+            <span className="text-lg font-bold text-gray-900">
+              ${product.price}
+            </span>
             {product.originalPrice > product.price && (
-              <span className="text-sm text-gray-500 line-through">${product.originalPrice}</span>
+              <span className="text-sm text-gray-500 line-through">
+                ${product.originalPrice}
+              </span>
             )}
           </div>
           {product.inStock && (
@@ -445,7 +528,11 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
           )}
         </div>
 
-        <div className={`transition-all duration-300 ${isHovered ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0'} overflow-hidden`}>
+        <div
+          className={`transition-all duration-300 ${
+            isHovered ? "opacity-100 max-h-20" : "opacity-0 max-h-0"
+          } overflow-hidden`}
+        >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center border rounded-lg">
               <button
@@ -454,7 +541,9 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
               >
                 <Minus className="h-4 w-4" />
               </button>
-              <span className="px-3 py-2 min-w-[40px] text-center">{quantity}</span>
+              <span className="px-3 py-2 min-w-[40px] text-center">
+                {quantity}
+              </span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
                 className="p-2 hover:bg-gray-100 transition-colors"
@@ -470,18 +559,25 @@ const ProductCard = ({ product, onAddToCart, onToggleWishlist, isWishlisted }) =
           disabled={!product.inStock}
           className={`w-full py-2 px-4 rounded-lg font-medium transition-all duration-200 ${
             product.inStock
-              ? 'bg-blue-600 hover:bg-blue-700 text-white transform hover:scale-105'
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              ? "bg-blue-600 hover:bg-blue-700 text-white transform hover:scale-105"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
           }`}
         >
-          {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+          {product.inStock ? "Add to Cart" : "Out of Stock"}
         </button>
       </div>
     </div>
   );
 };
 
-const Cart = ({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem, cartTotal }) => {
+const Cart = ({
+  isOpen,
+  onClose,
+  cart,
+  onUpdateQuantity,
+  onRemoveItem,
+  cartTotal,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -505,8 +601,11 @@ const Cart = ({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem, cartTotal
             </div>
           ) : (
             <div className="space-y-4">
-              {cart.map(item => (
-                <div key={item.id} className="flex items-center space-x-4 bg-gray-50 p-3 rounded-lg">
+              {cart.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center space-x-4 bg-gray-50 p-3 rounded-lg"
+                >
                   <img
                     src={item.image}
                     alt={item.name}
@@ -517,14 +616,20 @@ const Cart = ({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem, cartTotal
                     <p className="text-gray-600 text-sm">${item.price}</p>
                     <div className="flex items-center mt-2">
                       <button
-                        onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                        onClick={() =>
+                          onUpdateQuantity(item.id, item.quantity - 1)
+                        }
                         className="p-1 hover:bg-gray-200 rounded transition-colors"
                       >
                         <Minus className="h-4 w-4" />
                       </button>
-                      <span className="mx-2 min-w-[30px] text-center">{item.quantity}</span>
+                      <span className="mx-2 min-w-[30px] text-center">
+                        {item.quantity}
+                      </span>
                       <button
-                        onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                        onClick={() =>
+                          onUpdateQuantity(item.id, item.quantity + 1)
+                        }
                         className="p-1 hover:bg-gray-200 rounded transition-colors"
                       >
                         <Plus className="h-4 w-4" />
@@ -559,14 +664,22 @@ const Cart = ({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem, cartTotal
   );
 };
 
-const ProductGrid = ({ products, viewMode, onAddToCart, onToggleWishlist, isWishlisted }) => {
+const ProductGrid = ({
+  products,
+  viewMode,
+  onAddToCart,
+  onToggleWishlist,
+  isWishlisted,
+}) => {
   return (
-    <div className={`grid gap-6 ${
-      viewMode === 'grid' 
-        ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-        : 'grid-cols-1'
-    }`}>
-      {products.map(product => (
+    <div
+      className={`grid gap-6 ${
+        viewMode === "grid"
+          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          : "grid-cols-1"
+      }`}
+    >
+      {products.map((product) => (
         <ProductCard
           key={product.id}
           product={product}
@@ -584,18 +697,18 @@ const Features = () => {
     {
       icon: <Truck className="h-8 w-8 text-blue-600" />,
       title: "Free Shipping",
-      description: "Free shipping on orders over $50"
+      description: "Free shipping on orders over $50",
     },
     {
       icon: <Shield className="h-8 w-8 text-green-600" />,
       title: "Secure Payment",
-      description: "Your payment information is safe"
+      description: "Your payment information is safe",
     },
     {
       icon: <RotateCcw className="h-8 w-8 text-purple-600" />,
       title: "Easy Returns",
-      description: "30-day return policy"
-    }
+      description: "30-day return policy",
+    },
   ];
 
   return (
@@ -603,10 +716,11 @@ const Features = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
-              <div className="flex justify-center mb-4">
-                {feature.icon}
-              </div>
+            <div
+              key={index}
+              className="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
+            >
+              <div className="flex justify-center mb-4">{feature.icon}</div>
               <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
               <p className="text-gray-600">{feature.description}</p>
             </div>
@@ -621,53 +735,53 @@ const Features = () => {
 export default function EcommerceApp() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [viewMode, setViewMode] = useState('grid');
-  const [sortBy, setSortBy] = useState('featured');
+  const [viewMode, setViewMode] = useState("grid");
+  const [sortBy, setSortBy] = useState("featured");
   const [filters, setFilters] = useState({
-    category: 'All',
-    brand: 'All',
+    category: "All",
+    brand: "All",
     maxPrice: 1000,
-    inStockOnly: false
+    inStockOnly: false,
   });
 
   const cart = useCart();
   const wishlist = useWishlist();
 
   const handleFilterChange = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
+    setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   const filteredProducts = useMemo(() => {
     let filtered = [...mockProducts];
 
-    if (filters.category !== 'All') {
-      filtered = filtered.filter(p => p.category === filters.category);
+    if (filters.category !== "All") {
+      filtered = filtered.filter((p) => p.category === filters.category);
     }
 
-    if (filters.brand !== 'All') {
-      filtered = filtered.filter(p => p.brand === filters.brand);
+    if (filters.brand !== "All") {
+      filtered = filtered.filter((p) => p.brand === filters.brand);
     }
 
     if (filters.maxPrice < 1000) {
-      filtered = filtered.filter(p => p.price <= filters.maxPrice);
+      filtered = filtered.filter((p) => p.price <= filters.maxPrice);
     }
 
     if (filters.inStockOnly) {
-      filtered = filtered.filter(p => p.inStock);
+      filtered = filtered.filter((p) => p.inStock);
     }
 
     // Sort products
     switch (sortBy) {
-      case 'price-low':
+      case "price-low":
         filtered.sort((a, b) => a.price - b.price);
         break;
-      case 'price-high':
+      case "price-high":
         filtered.sort((a, b) => b.price - a.price);
         break;
-      case 'rating':
+      case "rating":
         filtered.sort((a, b) => b.rating - a.rating);
         break;
-      case 'name':
+      case "name":
         filtered.sort((a, b) => a.name.localeCompare(b.name));
         break;
       default:
@@ -699,7 +813,9 @@ export default function EcommerceApp() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">Products</h2>
-                <p className="text-gray-600">{filteredProducts.length} items found</p>
+                <p className="text-gray-600">
+                  {filteredProducts.length} items found
+                </p>
               </div>
 
               <div className="flex items-center space-x-4">
@@ -720,14 +836,22 @@ export default function EcommerceApp() {
 
                 <div className="flex items-center border border-gray-300 rounded-lg">
                   <button
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-100'} transition-colors`}
+                    onClick={() => setViewMode("grid")}
+                    className={`p-2 ${
+                      viewMode === "grid"
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-600 hover:bg-gray-100"
+                    } transition-colors`}
                   >
                     <Grid className="h-5 w-5" />
                   </button>
                   <button
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:bg-gray-100'} transition-colors`}
+                    onClick={() => setViewMode("list")}
+                    className={`p-2 ${
+                      viewMode === "list"
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-600 hover:bg-gray-100"
+                    } transition-colors`}
                   >
                     <List className="h-5 w-5" />
                   </button>
@@ -748,8 +872,12 @@ export default function EcommerceApp() {
                 <div className="text-gray-400 mb-4">
                   <Filter className="h-16 w-16 mx-auto" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
-                <p className="text-gray-600">Try adjusting your filters to see more results.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No products found
+                </h3>
+                <p className="text-gray-600">
+                  Try adjusting your filters to see more results.
+                </p>
               </div>
             )}
           </div>
@@ -766,34 +894,98 @@ export default function EcommerceApp() {
                 ShopLux
               </h3>
               <p className="text-gray-400">
-                Your premium destination for quality products and exceptional service.
+                Your premium destination for quality products and exceptional
+                service.
               </p>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Customer Service</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Shipping Info</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Returns</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Contact Us
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://youtu.be/dQw4w9WgXcQ?si=jpoliL-EAuM3buDR"
+                    className="hover:text-white transition-colors"
+                  >
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Shipping Info
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Returns
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Press</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Press
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Blog
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Connect</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Facebook</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
+                <li>
+                  <a
+                    href="facebook.com"
+                    className="hover:text-white transition-colors"
+                  >
+                    Facebook
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="x.com"
+                    className="hover:text-white transition-colors"
+                  >
+                    Twitter
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="instagram.com"
+                    className="hover:text-white transition-colors"
+                  >
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="linkedin.com"
+                    className="hover:text-white transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -821,11 +1013,11 @@ export default function EcommerceApp() {
             transform: translateX(0);
           }
         }
-        
+
         .animate-slide-in-right {
           animation: slide-in-right 0.3s ease-out;
         }
-        
+
         .line-clamp-2 {
           display: -webkit-box;
           -webkit-line-clamp: 2;
