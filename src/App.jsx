@@ -915,7 +915,10 @@ export default function EcommerceApp() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="https://www.youtube.com/watch?v=EwTZ2xpQwpA"
+                    className="hover:text-white transition-colors"
+                  >
                     Shipping Info
                   </a>
                 </li>
@@ -930,7 +933,10 @@ export default function EcommerceApp() {
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="https://youtu.be/h9uFQv3t1AU?si=wIUcvthMpaJSZYpJ"
+                    className="hover:text-white transition-colors"
+                  >
                     About Us
                   </a>
                 </li>
@@ -945,7 +951,10 @@ export default function EcommerceApp() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <a
+                    href="https://www.youtube.com/watch?v=-jHZ6kqipws"
+                    className="hover:text-white transition-colors"
+                  >
                     Blog
                   </a>
                 </li>
@@ -956,7 +965,7 @@ export default function EcommerceApp() {
               <ul className="space-y-2 text-gray-400">
                 <li>
                   <a
-                    href="facebook.com"
+                    href="https:/www.facebook.com/"
                     className="hover:text-white transition-colors"
                   >
                     Facebook
@@ -964,7 +973,7 @@ export default function EcommerceApp() {
                 </li>
                 <li>
                   <a
-                    href="x.com"
+                    href="https:/www.x.com"
                     className="hover:text-white transition-colors"
                   >
                     Twitter
@@ -972,7 +981,7 @@ export default function EcommerceApp() {
                 </li>
                 <li>
                   <a
-                    href="instagram.com"
+                    href="https:/www.instagram.com"
                     className="hover:text-white transition-colors"
                   >
                     Instagram
@@ -980,7 +989,7 @@ export default function EcommerceApp() {
                 </li>
                 <li>
                   <a
-                    href="linkedin.com"
+                    href="https:/www.linkedin.com"
                     className="hover:text-white transition-colors"
                   >
                     LinkedIn
