@@ -260,9 +260,13 @@ const useWishlist = () => {
 };
 
 // Components
-const Header = ({ cartCount, onCartClick, onMenuClick }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-
+const Header = ({
+  cartCount,
+  onCartClick,
+  onMenuClick,
+  searchQuery,
+  setSearchQuery,
+}) => {
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -733,6 +737,7 @@ const Features = () => {
 
 // Main App Component
 export default function EcommerceApp() {
+  const [searchQuery, setSearchQuery] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
@@ -753,6 +758,19 @@ export default function EcommerceApp() {
 
   const filteredProducts = useMemo(() => {
     let filtered = [...mockProducts];
+
+    // Search functionality
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(
+        (p) =>
+          p.name.toLowerCase().includes(query) ||
+          p.description.toLowerCase().includes(query) ||
+          p.brand.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query) ||
+          p.tags.some((tag) => tag.toLowerCase().includes(query))
+      );
+    }
 
     if (filters.category !== "All") {
       filtered = filtered.filter((p) => p.category === filters.category);
@@ -790,7 +808,7 @@ export default function EcommerceApp() {
     }
 
     return filtered;
-  }, [filters, sortBy]);
+  }, [filters, sortBy, searchQuery]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -798,6 +816,8 @@ export default function EcommerceApp() {
         cartCount={cart.cartCount}
         onCartClick={() => setCartOpen(true)}
         onMenuClick={() => setSidebarOpen(true)}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
 
       <div className="flex">
@@ -812,9 +832,22 @@ export default function EcommerceApp() {
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">Products</h2>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {searchQuery
+                    ? `Search results for "${searchQuery}"`
+                    : "Products"}
+                </h2>
                 <p className="text-gray-600">
-                  {filteredProducts.length} items found
+                  {filteredProducts.length}{" "}
+                  {filteredProducts.length === 1 ? "item" : "items"} found
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="ml-2 text-blue-600 hover:text-blue-800 text-sm underline"
+                    >
+                      Clear search
+                    </button>
+                  )}
                 </p>
               </div>
 
@@ -867,7 +900,41 @@ export default function EcommerceApp() {
               isWishlisted={wishlist.isInWishlist}
             />
 
-            {filteredProducts.length === 0 && (
+            {filteredProducts.length === 0 && searchQuery && (
+              <div className="text-center py-12">
+                <div className="text-gray-400 mb-4">
+                  <Search className="h-16 w-16 mx-auto" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No results found for "{searchQuery}"
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Try searching for something else or check your spelling.
+                </p>
+                <div className="space-y-2">
+                  <p className="text-sm text-gray-500">Suggestions:</p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {[
+                      "headphones",
+                      "watch",
+                      "camera",
+                      "keyboard",
+                      "coffee",
+                    ].map((suggestion) => (
+                      <button
+                        key={suggestion}
+                        onClick={() => setSearchQuery(suggestion)}
+                        className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm text-gray-700 transition-colors"
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {filteredProducts.length === 0 && !searchQuery && (
               <div className="text-center py-12">
                 <div className="text-gray-400 mb-4">
                   <Filter className="h-16 w-16 mx-auto" />
@@ -907,18 +974,12 @@ export default function EcommerceApp() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://youtu.be/dQw4w9WgXcQ?si=jpoliL-EAuM3buDR"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     FAQ
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://www.youtube.com/watch?v=EwTZ2xpQwpA"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     Shipping Info
                   </a>
                 </li>
@@ -933,10 +994,7 @@ export default function EcommerceApp() {
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a
-                    href="https://youtu.be/h9uFQv3t1AU?si=wIUcvthMpaJSZYpJ"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     About Us
                   </a>
                 </li>
@@ -951,10 +1009,7 @@ export default function EcommerceApp() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https://www.youtube.com/watch?v=-jHZ6kqipws"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     Blog
                   </a>
                 </li>
@@ -964,34 +1019,22 @@ export default function EcommerceApp() {
               <h4 className="font-semibold mb-4">Connect</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a
-                    href="https:/www.facebook.com/"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     Facebook
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https:/www.x.com"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     Twitter
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https:/www.instagram.com"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     Instagram
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="https:/www.linkedin.com"
-                    className="hover:text-white transition-colors"
-                  >
+                  <a href="#" className="hover:text-white transition-colors">
                     LinkedIn
                   </a>
                 </li>
